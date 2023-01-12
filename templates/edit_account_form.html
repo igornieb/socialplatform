@@ -1,0 +1,15 @@
+{% extends 'form_template.html' %}
+{% block form %}
+    <img style="height: 150px; width:auto" class="mx-auto d-block rounded-circle" src="{{ account.profile_picture.url }}">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        Profile picture:
+        <input class='form-control' type="file" name="profile_picture" accept="image/*" id="id_picture">
+        Name:
+        <input class='form-control' type="text" name="name" accept="image/*" value="{{ account.name }}" required="" id="id_picture">
+        Bio:
+        <textarea class="form-control" name="bio">{{ account.bio }}</textarea>
+        <br>
+        <button class="btn btn-primary d-block w-100" type="submit">Save</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+    <section class="bg-primary-gradient">
+            <div class="container pt-4 pt-xl-5" style="width: 500px;height: 500px;">
+                <div class="row pt-5">
+                    <div class="col-md-12" style="padding-bottom: 1em"><img class="w-100 h-100 fit-cover" src="{{post.picture.url}}"></div>
+                    <div class="col-md-10 col-xl-10"><strong><a href="{% url 'user' post.owner.pk %}"><img style="max-width: 30px; border-radius: 50%;" src="{{ post.owner.profile_picture.url }}">@{{ post.owner.user }}</a> <p style="font-size:90%;">{{ post.no_of_likes }} likes</p></strong>
+                        <p style="font-size:70%; margin-top: -1em">{{ post.date }}</p>
+                        <p><a href="{% url 'post' post.pk %}" style="text-decoration: none"> {{ post.description }}</a></p>
+                    </div>
+                    <div class="col-md-2 col-xl-2">
+                        <a href="{% url 'like' post.pk %}"><i class="fa fa-heart"></i></a>
+                        <div>
+                            {% if user == post.owner.user %}
+                                <a href="{% url 'post-update' post.pk %}"><i class='far fa-edit'></i></a>
+                                <br>
+                                <a href="{% url 'post-delete' post.pk %}"><i class='far fa-trash'></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-12 justify-content-center">
+                    {% if user.is_authenticated %}
+                    Add new comment
+                        <form action="{% url 'add-comment' post.pk %}" method="post">
+                            {% csrf_token %}
+                            <textarea class="form-control" name="comment" cols="10" rows="2" required=""></textarea>
+                            <br>
+                            <button class="btn btn-primary d-block w-20" type="submit">Add comment</button>
+                        </form>
+                    {% endif %}
+                    {% if comments %}
+                    Comments:
+                        {% for comment in comments %}
+                            <div>
+                            <a class="container pt-4 pt-xl-5" style="margin-left:1em; font-size: 0.8em">
+                                <a style="font-size: 0.8em; text-decoration: none" href="{% url 'user' comment.owner.pk %}"><p><img style="width: 30px; border-radius: 50%;" src="{{ comment.owner.profile_picture.url }}">{{ comment.owner.user }} {{ comment.date }}</p></a>
+                                <p style="padding-left:1em">{{ comment.comment }}</p>
+                                {% if user == comment.owner.user %}
+                                    <div style="padding-left:1em">
+                                        <a href="{% url 'comment-update' comment.pk %}"><i class='far fa-edit'></i></a>
+                                        <a href="{% url 'comment-delete' comment.pk %}"><i class='far fa-trash'></i></a>
+                                    </div>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+            <br>
+            <div class="pagination justify-content-center">
+                <span class="step-links" style="text-align: center;">
+                    {% if comments.has_previous %}
+                        <a href="?page={{ comments.previous_page_number }}">newer comments</a>
+                    {% endif %}
+                    {% if comments.has_next %}
+                        <a href="?page={{ comments.next_page_number }}">older comments</a>
+                    {% endif %}
+                </span>
+            </div>
+            </div>
+        </section>
+{% endblock %}

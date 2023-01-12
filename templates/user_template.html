@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block main %}
+    <section class="py-5">
+        <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
+            <div class="row gy-4 w-100" style="max-width: 800px;">
+            <div class="col-md-3">
+                    <img style="width: 150px;height: 150px; border-radius: 50%;" src="{{ account.profile_picture.url }}">
+                </div>
+                <div class="col-md-2 text-center d-flex d-md-flex flex-row justify-content-md-start align-items-md-center">
+                    <strong><a class="text-decoration-none" href="{% url 'user' account.pk %}">@{{ account.user }}</a></strong>
+                </div>
+                <div class="col-md-2 text-center d-flex d-md-flex flex-row justify-content-md-start align-items-md-center">
+                    <strong><a href="{% url 'followers' account.pk %}">Followers: {{ account.followers }}</a></strong>
+                </div>
+                <div class="col-md-2 text-center d-flex d-md-flex flex-row justify-content-md-start align-items-md-center">
+                    <strong><a href="{% url 'follows' account.pk %}">Follows: {{ account.follows }}</a></strong>
+                </div>
+                <div class="col-md-2 text-center d-flex d-md-flex flex-row justify-content-md-start align-items-md-center">
+                    <p>
+                        {% if user == account.user %}
+                            <a class="btn btn-primary btn-sm d-flex d-md-flex flex-row justify-content-center align-items-center flex-wrap justify-content-md-center align-items-md-center" href="{% url 'settings' %}">Settings</a>
+                        {% endif %}
+                        {% if user.is_authenticated and user != account.user%}
+                            <a class="btn btn-primary btn-sm d-flex d-md-flex flex-row justify-content-center align-items-center flex-wrap justify-content-md-center align-items-md-center" href="{% url 'follow' account.pk %}">{{ follow_action }}</a>
+                        {% endif %}
+                    </p>
+                </div>
+            <br>
+                <div class="row" style="padding-top: 1em">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-9 card">
+                        {{ account.name }}
+                        <br>
+                        {{ account.bio }}
+                    </div>
+                </div>
+               {% block user_data %}
+
+               {% endblock %}
+            </section>
+            </div>
+        </div>
+    </section>
+{% endblock %}

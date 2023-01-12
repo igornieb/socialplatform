@@ -1,0 +1,11 @@
+{% extends 'form_template.html' %}
+{% block form %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        Comment:
+        <textarea class="form-control" name="comment" cols="40" rows="10" required="" id="id_description">{{ comment.comment }}</textarea>
+        <br>
+        <input class="btn btn-primary d-block w-100" value="Save" type="submit">
+    </form>
+{% endblock %}

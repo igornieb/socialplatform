@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block main %}
+<section class="bg-primary-gradient">
+    <div class="container pt-4 pt-xl-5" style="width: 500px;height: 500px;">
+        <div class="row pt-5">
+            <form class="text-center" method="post">
+                {% csrf_token %}
+                <div class="mb-3"><input class="form-control" type="text" name="search"></div>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Search</button></div>
+            </form>
+            <div class="row pt-5">
+                {% if results %}
+                    {% for result in results %}
+                        <strong class="text-decoration-none" style="padding-bottom: 1em"><img style="width:100px; height: 100px; border-radius: 50%; margin-right: 1em" src="{{ result.profile_picture.url}}"><a href="{% url 'user' result.pk %}">@{{ result.user }}</a></strong>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="row pt-5">
+                {% if popular_users %}
+                    {% for result in popular_users %}
+                        <div class="col-3 text-center">
+                            <a href="{% url 'user' result.pk %}" style="padding-bottom: 1em">
+                            <img style="width:100px; height: 100px; border-radius: 50%; margin-right: 1em" src="{{ result.profile_picture.url}}">
+                            <strong class="text-center text-decoration-none">@{{ result.user }}</strong>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="row pt-5">
+                {% if popular_posts %}
+                    <div class="col">
+                        {% for post in popular_posts %}
+                            <div class="col-md-12" style="padding-bottom: 1em"><img class="w-100 h-100 fit-cover" src="{{post.picture.url}}"></div>
+                            <div class="row">
+                                <div class="col-md-10 col-xl-10"><strong><a href="{% url 'user' post.owner.pk %}"><img style="width: 30px; height: 30px; border-radius: 50%;" src="{{ post.owner.profile_picture.url }}">@{{ post.owner.user }}</a> <p style="font-size:90%;">{{ post.no_of_likes }} likes</p></strong>
+                                    <p style="font-size:70%; margin-top: -1em">{{ post.date }}</p>
+                                    <p><a href="{% url 'post' post.pk %}" style="text-decoration: none"> {{ post.description|truncatewords:20 }}</a></p>
+                                </div>
+                                <div class="col-md-2 col-xl-2">
+                                    <a href="{% url 'like' post.pk %}"><i class="fa fa-heart"></i></a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="pagination">
+                        <span class="step-links" style="text-align: center;">
+                            {% if popular_posts.has_previous %}
+                            <a href="?page={{ popular_posts.previous_page_number }}">less</a>
+                         {% endif %}
+                         {% if popular_posts.has_next %}
+                             <a href="?page={{ popular_posts.next_page_number }}">more</a>
+                         {% endif %}
+                        </span>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

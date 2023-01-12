@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block main %}
+
+    <section class="bg-primary-gradient">
+            <div class="container pt-4 pt-xl-5" style="width: 500px;height: 500px;">
+                <div class="row pt-5">
+                    <form method="post" class="text-center">{% csrf_token %}
+                             <p>Are you sure you want to delete {{ item }}?</p>
+                            <input class="btn btn-danger" type="submit" value="Confirm">
+                        </form>
+                </div>
+            </div>
+        </section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block main %}
+        <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
+            <div class="row gy-4 w-100" style="max-width: 800px;">
+            <div class="col-md-3">
+                    <img style="width: 150px;height: 150px; border-radius: 50%;" src="{{ account.profile_picture.url }}">
+                </div>
+                <div class="col-md-2 text-center d-flex d-md-flex flex-row justify-content-md-start align-items-md-center">
+                    <strong><a class="text-decoration-none" href="{% url 'user' account.pk %}">@{{ account.user }}</a></strong>
+                </div>
+                <div class="col-md-2 text-center d-flex d-md-flex flex-row justify-content-md-start align-items-md-center">
+                    <strong><a href="{% url 'followers' account.pk %}">Followers: {{ account.followers }}</a></strong>
+                </div>
+                <div class="col-md-2 text-center d-flex d-md-flex flex-row justify-content-md-start align-items-md-center">
+                    <strong><a href="{% url 'follows' account.pk %}">Follows: {{ account.follows }}</a></strong>
+                </div>
+                <div class="col text-center d-md-flex justify-content-md-center align-items-md-center"><a class="btn btn-primary btn-sm d-flex d-md-flex flex-row justify-content-center align-items-center flex-wrap justify-content-md-center align-items-md-center" href="{% url 'account-update'  %}">Edit account info</a></div>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-md-6">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 d-md-flex justify-content-md-center align-items-md-center">
+            <p></p><a href="{% url 'account-delete' %}" class="btn btn-danger btn-sm d-flex d-md-flex flex-row justify-content-center align-items-center flex-wrap justify-content-md-center align-items-md-center" type="button">Delete Account</a>
+        </div>
+        <div class="col-md-6 text-center d-md-flex justify-content-md-center align-items-md-center"><a href="{% url 'change-password' %}" class="btn btn-primary btn-sm d-flex d-md-flex flex-row justify-content-center align-items-center flex-wrap justify-content-md-center align-items-md-center" type="button">Change password</a></div>
+    </div>
+    <div class="container" style="padding-left: 3em">
+        <br>
+        Recent actions:
+            {% for action in actions %}
+            <div class="col-md-6 d-md-flex" style="padding-left: 1em">
+                <strong><a href="{% url 'user' action.user.pk %}">@{{action.user.user.username}}</a> {{ action.verb }} <a href="{{ action.content_object.get_absolute_url }}">{{ action.content_object }}</a></strong>
+            </div>
+            {% endfor %}
+        <div class="pagination">
+                <span class="step-links" style="text-align: center;">
+                    {% if actions.has_previous %}
+                        <a href="?page={{ actions.previous_page_number }}">newer</a>
+                    {% endif %}
+                    {% if actions.has_next %}
+                        <a href="?page={{ actions.next_page_number }}">older</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        </div>
+        <br>
+</section>
+{% endblock %}

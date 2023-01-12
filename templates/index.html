@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block main %}
+    <section class="bg-primary-gradient">
+            <div class="container pt-4 pt-xl-5" style="width: 500px;height: 500px;">
+                {% for post in posts %}
+                    <div class="row pt-5">
+                        <div class="col-md-12" style="padding-bottom: 1em"><img class="w-100 h-100 fit-cover" src="{{post.picture.url}}"></div>
+                            <div class="col-md-10 col-xl-10"><strong><a href="{% url 'user' post.owner.pk %}"><img style="width: 30px; height: 30px;  border-radius: 50%;" src="{{ post.owner.profile_picture.url }}">@{{ post.owner.user }}</a> <p style="font-size:90%;">{{ post.no_of_likes }} likes</p></strong>
+                                <p style="font-size:70%; margin-top: -1em">{{ post.date }}</p>
+                                <p><a href="{% url 'post' post.pk %}" style="text-decoration: none"> {{ post.description }}</a></p>
+                            </div>
+                        <div class="col-md-2 col-xl-2">
+                            <a href="{% url 'like' post.pk %}"><i class="fa fa-heart"></i></a>
+                            <div>
+                                {% if user == post.owner.user %}
+                                    <a href="{% url 'post-update' post.pk %}"><i class='far fa-edit'></i></a>
+                                    <br>
+                                    <a href="{% url 'post-delete' post.pk %}"><i class='far fa-trash'></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="padding-left: 2em">
+                            {% if post.newest_comment %}
+                                <a class="container pt-4 pt-xl-5" style="margin-left: 30%;width:70%; font-size: 0.8em">
+                                    <a style="font-size: 0.8em; text-decoration: none" href="{% url 'user' post.newest_comment.owner.pk %}"><p><img style="width: 30px;height: 30px; border-radius: 50%;" src="{{ post.newest_comment.owner.profile_picture.url }}">{{ post.newest_comment.owner.user }} {{ post.newest_comment.date }}</p></a>
+                                    <p style="padding-left:1em">{{ post.newest_comment.comment }}</p>
+                                    {% if user == post.newest_comment.owner.user %}
+                                        <div style="padding-left:1em">
+                                            <a href="{% url 'comment-update' post.newest_comment.pk %}?next={% url 'post' post.pk %}"><i class='far fa-edit'></i></a>
+                                            <a href="{% url 'comment-delete' post.newest_comment.pk %}"><i class='far fa-trash'></i></a>
+                                        </div>
+                                        </a>
+                                    {% endif %}
+                            {% endif %}
+                    </div>
+                        <br>
+                    {% endfor %}
+                    <div class="pagination">
+                        <span class="step-links" style="text-align: center;">
+                            {% if posts.has_previous %}
+                                <a href="?page={{ posts.previous_page_number }}">less</a>
+                            {% endif %}
+                            {% if posts.has_next %}
+                                <a href="?page={{ posts.next_page_number }}">more</a>
+                            {% endif %}
+                        </span>
+                    </div>
+            </div>
+    </section>
+
+{% endblock %}
