@@ -3,6 +3,28 @@
 social platform made using Django with REST API and Bootstrap frontend.
 
 social platform is a photo social service. It lets you host your own pictures, follow other users and like their posts.
+
+# Table of Contents
+1. [Live website](#2-live-website)
+2. [Api endpoints](#3-api-endpoints)
+   1. [/api/posts/](#apiposts)
+   2. [/api/user/{id}](#apiuserid)
+   3. [/api/user/follows/{id}](#apiuserfollowsid)
+   4. [/api/user/followers/{id}/](#apiuserfollowersid)
+   5. [/api/settings](#apisettings)
+   6. [/api/follow/{id}](#apifollowid)
+   7. [/api/post/{id}](#apipostid)
+   8. [/api/post/comments/{id}](#apipostcommentsid)
+   9. [/api/comment/{id}](#apicommentid)
+   10. [/api/post/likes/{id}](#apipostlikesid)
+   11. [/api/trending/post/{days}](#apitrendingpostdays)
+   12. [/api/trending/users](#apitrendingusers)
+   13. [/api/search/{query}](#apisearchquery)
+   14. [/api/notifications](#apinotifications)
+   15. [/api/register](#apiregister)
+   16. [login/authentication](#loginauthentication)
+3. [Third Example](#third-example)
+4. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
 ## 2. Live Website
 LINK
 ## 3. API endpoints
@@ -130,7 +152,6 @@ LINK
           "followers": 0,
           "follows": 2
         }
-### /api/settings
   #### PATCH
    Lets user update their account info.
    
@@ -149,7 +170,7 @@ LINK
           "name": "Admin",
           "bio": "Im admin of this platform",
          }```
-### /follow/{id}
+### /api/follow/{id}
   #### GET
    Follows/unfollows user with a given id
    
@@ -163,7 +184,7 @@ LINK
    
 ```400``` other error
    
- ### /post/{id}
+ ### /api/post/{id}
   #### GET
    Gets post with given id.
    
@@ -225,7 +246,7 @@ LINK
     
 ```403``` user is not authenticated
    
-### /post/comments/{id}
+### /api/post/comments/{id}
   #### GET
    Get comments related to post with given id.
    
@@ -417,7 +438,7 @@ Error code:
 
 ```403``` - user is not authenticated
   
-### /api/post/trending/post/{days}
+### /api/trending/post/{days}
 #### GET
 Returns trending posts from last {days} days.
 
@@ -450,7 +471,7 @@ Example:
 ]
 ```
 
-### /api/post/trending/users
+### /api/trending/users
 #### GET
 Returns popular users from last {days} days.
 
@@ -583,4 +604,4 @@ Example:
 ```
 
 ### login/authentication
-This app uses baisic authentication method.
+This app uses baisic authentication methods.
