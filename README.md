@@ -31,6 +31,7 @@ LINK
                   "date": "2022-11-16T21:53:18Z",
                   "no_of_likes": 0
                 }
+                ...
              ]```
   #### POST
    Allows user that is signed in to add new post.
@@ -50,13 +51,15 @@ LINK
   #### GET
    Returns profile of user with given id.
    
-   Succes code: 200
+   Succes code: ```200```
    
-   Error code: 404
+   Error code: 
+   
+```404``` - not found
    
    Example:
    
-      ```{
+        {
             "pk": 1,
             "username": "admin",
             "profile_picture": "/media/media/user_1/profile/cattt605281251_U5Yl9sR.jpg",
@@ -64,18 +67,20 @@ LINK
             "bio": "Im admin of this platform",
             "followers": 0,
             "follows": 2
-         }```
+         }
 ### /api/user/follows/{id}
   #### GET
    Returns list of users that user with a given id follows.
    
-   Succes code: 200
+   Succes code: ```200```
    
-   Error code: 404
+   Error code: 
+
+   ```404``` - user not found
    
    Example:
    
-      ```[
+        [
           {
               "follower": "admin",
               "follower_url": "/user/1",
@@ -83,18 +88,19 @@ LINK
               "followed_url": "/user/14"
           },
           ...
-         ]```
+        ]
 ### /api/user/followers/{id}
   #### GET
    Returns list of users that are followin user with a given id.
    
-   Succes code: 200
+   Succes code: ```200```
    
-   Error code: 404
+   Error code: 
+   ```404``` - not found
    
    Example:
    
-      ```[
+        [
           {
               "follower": "admin",
               "follower_url": "/user/1",
@@ -102,18 +108,20 @@ LINK
               "followed_url": "/user/14"
           },
           ...
-         ]```
+        ]
 ### /api/settings
   #### GET
    Lets logged in user view their account info.
    
-   Succes code: 200
+   Succes code: ```200```
    
-   Error code: 403
+   Error code: 
+   
+```403``` - access denied
    
    Example:
    
-      ```{
+        {
           "pk": 1,
           "username": "admin",
           "profile_picture": "/media/media/user_1/profile/cattt605281251_U5Yl9sR.jpg",
@@ -121,18 +129,18 @@ LINK
           "bio": "Im admin of this platform",
           "followers": 0,
           "follows": 2
-         }```
+        }
 ### /api/settings
   #### PATCH
-   Lets logged in user update their account info.
+   Lets user update their account info.
    
-   Succes code: 200
+   Success code: ```200```
    
    Error code:
    
-   ```403``` user is not authenticated
+   ```403``` - user is not authenticated
    
-   ```400``` wrong input
+   ```400``` - wrong input
    
    Example:
    
@@ -149,29 +157,29 @@ LINK
    
    Error code: 
    
-    ```404``` user not found
+```404``` user not found
     
-   ```403``` user is not authenticated
+```403``` user is not authenticated
    
-   ```400``` other error
+```400``` other error
    
  ### /post/{id}
   #### GET
    Gets post with given id.
    
-   Succes code: 200
+   Succes code: ```200```
    
    Error code: 
    
-    ```404``` post not found
+```404``` post not found
     
-   ```403``` user is not authenticated
+```403``` user is not authenticated
    
-   ```400``` bad request
+```400``` bad request
    
    Example:
    
-     ```{
+     {
       "post_url": "/post/1",
       "owner": {
           "pk": 1,
@@ -186,50 +194,50 @@ LINK
       "description": "My new kaczkaa",
       "date": "2022-11-16T21:53:18Z",
       "no_of_likes": 0
-  }```
+    }
   
   #### PATCH
    Lets owner edit their post description.
    
-   Succes code: 200
+   Success code: ```200```
    
    Error code: 
    
-    ```404``` post not found
+```404``` post not found
     
-   ```403``` user is not authenticated
+```403``` user is not authenticated
    
-   ```400``` bad request
+```400``` bad request
    
    Example:
    
-     ```{
-      "description": "My new kaczkaa",
-    }```
+     {
+      "description": "My new kaczkaa"
+     }
   #### DELETE
    Deletes post with given id.
    
-   Succes code: 204
+   Success code: ```204```
    
    Error code: 
    
-    ```404``` post not found
+```404``` post not found
     
-   ```403``` user is not authenticated
+```403``` user is not authenticated
    
-   ### /post/comments/{id}
+### /post/comments/{id}
   #### GET
-   Gets comments related to post with given id.
+   Get comments related to post with given id.
    
-   Succes code: 200
+   Success code: ```200```
    
    Error code: 
    
-    ```404``` post not found
+```404``` post not found
          
    Example:
    
-     ```[
+     [
       {
         "comment_pk": 45,
         "owner": {
@@ -261,7 +269,7 @@ LINK
         "date": "2022-12-06T20:04:37.069064Z"
     },
     ...
-  ]```
+    ]
   
   #### POST
    Adds comment to post with given id.
@@ -281,18 +289,19 @@ LINK
      ```{
       "comment": "new comment"
     }```
-###/api/comment/{id}
-      ####GET
-      Gets comment with given id.
+### /api/comment/{id}
+####GET
+Gets comment with given id.
       
-      Succes code: ```200```
+Succes code: ```200```
       
-      Error code:
+Error code:
       
-      ```404``` comment not found
+```404``` comment not found
       
-      Example:
-      ```{
+Example:
+
+    {
         "comment_pk": 45,
         "owner": {
             "pk": 1,
@@ -321,40 +330,257 @@ LINK
         },
         "comment": "TEST2",
         "date": "2022-12-06T20:04:37.069064Z"
-    }'''
-  ####PATCH
-  Lets owner edit comment with given id.
+        }
+    
+#### PATCH
+Lets owner edit comment with given id.
   
-  Succes code: 200
+Success code: ```200```
       
-  Error code:
+Error code:
       
-  ```404``` comment not found
-  ```403``` user is not authenticated
-  ```400``` bad request
+```404``` comment not found
+```403``` user is not authenticated
+```400``` bad request
   
   Example:
-  ```{
+
+  ```
+  {
   'comment':'edit comment'
-  }```
+  }
+  ```
   
-  ####DELETE
+  #### DELETE
   Deletes comment with given id.
   
-  Succes code: 204
+  Success code: ```204```
             
   Error code:
   
   ```404``` comment not found
+
   ```403``` user is not authenticated
   
-  
-  
-      
-  
+### /api/post/likes/{id}
+#### GET
+Returns list of users that liked post with given id.
 
+Success code: ```200```
+
+Error code:
+
+```404``` - post not found
+
+Example:
+
+```
+[
+    {
+        "user": {
+            "pk": 1,
+            "username": "admin",
+            "profile_picture": "/media/media/user_1/profile/cattt605281251_U5Yl9sR.jpg",
+            "name": "Admin AGH",
+            "bio": "Im admin of this platform",
+            "followers": 0,
+            "follows": 2
+        },
+        "post": {
+            "post_url": "/post/1",
+            "owner": {
+                "pk": 1,
+                "username": "admin",
+                "profile_picture": "/media/media/user_1/profile/cattt605281251_U5Yl9sR.jpg",
+                "name": "Admin AGH",
+                "bio": "Im admin of this platform",
+                "followers": 0,
+                "follows": 2
+            },
+            "picture": "/media/media/user_1/posts/kaczk.jpg",
+            "description": "My new kaczkaa",
+            "date": "2022-11-16T21:53:18Z",
+            "no_of_likes": 0
+        }
+    }
+    ...
+]
+```
+#### POST
+Likes post with a given id.
+
+Success code: ```200```
+
+Error code:
+
+```404``` - post not found
+
+```403``` - user is not authenticated
+  
+### /api/post/trending/post/{days}
+#### GET
+Returns trending posts from last {days} days.
+
+Success code: ```200```
+      
+Error code:
+
+```404``` - not found
+
+Example:
+```
+[
+    {
+        "pk": 8,
+        "owner": {
+            "pk": 1,
+            "username": "admin",
+            "profile_picture": "/media/media/user_1/profile/cattt605281251_U5Yl9sR.jpg",
+            "name": "Admin AGH",
+            "bio": "Im admin of this platform",
+            "followers": 0,
+            "follows": 2
+        },
+        "description": "postman test, utw with a very cool photo",
+        "picture": "/media/media/user_1/posts/1_SzViXwd.jpg",
+        "date": "2022-12-03T17:37:41.045722Z",
+        "no_of_likes": 1
+    },
+    ...
+]
+```
+
+### /api/post/trending/users
+#### GET
+Returns popular users from last {days} days.
+
+Success code: ```200```
+      
+Error code:
+
+```404``` - not found
     
-         
-         
-   
+Example:
+```
+[
+    {
+        "pk": 15,
+        "username": "igorniebtest1",
+        "profile_picture": "/media/media/blank.png",
+        "name": "",
+        "bio": "",
+        "followers": 0,
+        "follows": 0
+    },
+    ...
+]
+```
+
+### /api/search/{query}
+#### GET
+Returns users with usernames matching given query.
+
+Success code: ```200```
+      
+Error code:
+
+```404``` - not found
     
+Example:
+```
+[
+    {
+        "pk": 15,
+        "username": "igorniebtest1",
+        "profile_picture": "/media/media/blank.png",
+        "name": "",
+        "bio": "",
+        "followers": 0,
+        "follows": 0
+    },
+...
+]
+```
+
+### /api/notifications
+#### GET
+Returns the latest actions related to logged-in user
+
+Success code: ```200```
+      
+Error code:
+
+```403``` - access denied
+
+```404``` - not found
+
+Example:
+```
+[
+    {
+        "content_user": {
+            "pk": 1,
+            "username": "admin",
+            "profile_picture": "/media/media/user_1/profile/cattt605281251_U5Yl9sR.jpg",
+            "name": "Admin AGH",
+            "bio": "Im admin of this platform",
+            "followers": 0,
+            "follows": 2
+        },
+        "verb": "commented",
+        "content_object": {
+            "comment_pk": 46,
+            "owner": {
+                "pk": 1,
+                "username": "admin",
+                "profile_picture": "/media/media/user_1/profile/cattt605281251_U5Yl9sR.jpg",
+                "name": "Admin AGH",
+                "bio": "Im admin of this platform",
+                "followers": 0,
+                "follows": 2
+            },
+            "post": {
+                "pk": 9,
+                "owner": {
+                    "pk": 1,
+                    "username": "admin",
+                    "profile_picture": "/media/media/user_1/profile/cattt605281251_U5Yl9sR.jpg",
+                    "name": "Admin AGH",
+                    "bio": "Im admin of this platform",
+                    "followers": 0,
+                    "follows": 2
+                },
+                "description": "hmm smh is wrong...",
+                "picture": "/media/media/user_1/posts/honda-hrc.jpg",
+                "date": "2022-12-03T17:42:52.653233Z",
+                "no_of_likes": 0
+            },
+            "comment": "New comment",
+            "date": "2022-12-06T20:08:10.990633Z"
+        }
+    },
+   ...
+]
+```
+### /api/register
+#### POST
+Registration for new users
+
+Success code: ```201```
+
+Error code:
+
+```3``` - smh
+
+Example: 
+```
+{
+    "username": "username",
+    "email": "username@mail.ii",
+    "password1": "password",
+    "password2": "password"
+}
+```
+
+### login/authentication
+This app uses baisic authentication method.
