@@ -3,6 +3,7 @@
 social platform made using Django with REST API and Bootstrap frontend.
 
 social platform is a photo social service. It lets you host your own pictures, follow other users and like their posts.
+![image](https://user-images.githubusercontent.com/66256669/217853218-d5275c6e-ddc5-4cc0-b800-b8c6705eda97.png)
 
 # Table of Contents
 1. [Descryption](#1-Descryption)
