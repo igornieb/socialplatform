@@ -26,7 +26,7 @@ social platform is a photo social service. It lets you host your own pictures, f
    15. [/api/register](#apiregister)
    16. [login/authentication](#loginauthentication)
 ## 2. Live Website
-LINK
+[LINK](https://socialplatform-deploy-production-67f1.up.railway.app/)
 ## 3. API endpoints
 ### /api/posts/
   #### GET
